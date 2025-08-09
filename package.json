@@ -1,0 +1,64 @@
+{
+  "name": "npm-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "scripts": {
+    "imagemin": "rm -f assets/img/*; imagemin src/img/* --out-dir=assets/img",
+    "ejs": "ejs-cli --base-dir src/ejs \"*.ejs\" --out ./",
+    "css": "postcss src/postcss/_style.css -o style.css; npm run css-min",
+    "css-min": "cleancss -o style.min.css style.css",
+    "js-min": "terser src/js/*.js --compress --mangle --output assets/js/bundle.min.js",
+    "ujs": "npm run js-min",
+    "serve-html": "browser-sync start --server --files='*.html, *.css' --no-notify",
+    "serve-wp": "node ./src/browser-sync.js --no-notify",
+    "watch-css": "nodemon --watch 'src/postcss/**/*' -e scss,css --exec 'npm run css'",
+    "watch-ejs": "nodemon -e ejs -x \"npm run ejs \"",
+    "watch-js": "nodemon --watch 'src/js/*.js' -e js --exec 'npm run ujs'",
+    "watch-images": "nodemon --watch src/img -e png,jpg,jpeg,gif,svg,webp --exec 'npm run imagemin'",
+    "watch": "npm-run-all --parallel watch-css watch-images watch-js watch-ejs",
+    "watch_1": "npm-run-all --parallel watch-css_1 watch-images watch-js watch-ejs_1",
+    "start": "npm-run-all --parallel serve-wp watch-css watch-images watch-js watch-ejs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:musus/npm-starter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "clean-css-cli": "^5.6.3",
+    "ejs-cli": "^2.2.3",
+    "gulp-watch": "^5.0.1",
+    "imagemin-cli": "^8.0.0",
+    "minimatch": "^9.0.4",
+    "nodemon": "^3.1.10",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.38",
+    "postcss-calc": "^10.0.0",
+    "postcss-cli": "^11.0.0",
+    "postcss-combine-media-query": "^1.0.1",
+    "postcss-comment": "^2.0.0",
+    "postcss-easy-import": "^4.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-functions": "^4.0.2",
+    "postcss-mixins": "^10.0.1",
+    "postcss-nested": "^6.0.1",
+    "postcss-simple-vars": "^7.0.1",
+    "set-value": ">=4.1.0",
+    "stylelint": "^16.6.1",
+    "terser": "^5.31.1",
+    "uglify-js": "^3.18.0"
+  },
+  "volta": {
+    "node": "18.16.0"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}

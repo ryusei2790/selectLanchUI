@@ -1,0 +1,131 @@
+.header {
+    width: 100%;
+    height: 102px;
+    top: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    z-index: 10000;
+    /* 横幅って基本100%にしたほうがいいのかな*/
+    position: fixed;
+}
+
+.header img {
+    height: 70px;
+}
+
+.header__body {
+    width: 100%;
+    height: 100%;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &--title {
+
+        width: 20%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+}
+
+.header__body--title {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__body--nav {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.header__body--items {
+    width: 100%;
+    height: 100%;
+    margin: 0 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__body--item {
+    
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin: 0;
+    transition: transform 0.5s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.header__body--item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* --- レスポンシブ対応 --- */
+@media screen and (max-width: 1024px) {
+    .header {
+      height: auto;
+      padding: 10px 15px;
+    }
+  
+    .header__body {
+      flex-direction: column;
+      max-width: 100%;
+      height: auto;
+    }
+  
+    .header__body--title {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .header__body--nav {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .header__body--items {
+      margin: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .header__body--item {
+      padding: 10px 15px;
+      margin: 5px;
+      font-size: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .header {
+      height: auto;
+      padding: 10px;
+    }
+  
+    .header__body--items {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .header__body--item {
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+    }
+  }

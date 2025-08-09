@@ -1,0 +1,11 @@
+/*
+ * Theme Name: あいホーム
+ * Description: WordPress theme for aihome by aniuma
+ * Author: aniuma LLC
+*/
+
+@import "reset.css";
+@import "normalize.css";
+@import "foundation/**";
+@import "layout/**";
+@import "object/**/**";

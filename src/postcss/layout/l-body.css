@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+
+body {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+
+}
+
+.main {
+    width: 100vw;
+    height: 100%;
+}
+
+section {
+    width: 100vw;
+    height: 100%;
+    padding: 65px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    position: relative;
+    height: 64px;
+    color: gray;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 50px;
+}
+
+
+@media (max-width: 600px) {
+    section {
+      padding: 40px 20px; 
+      min-height: auto; 
+    }
+  
+    h1 {
+      font-size: 28px;
+      line-height: 1.3;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+}
+
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    section {
+      padding: 60px 30px;
+    }
+  
+    h1 {
+      font-size: 40px;
+      line-height: 1.3;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+}
+
+/* #loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+  }
+
+  /* #loadingOverlay img {
+    width: 200px; 
+  } */
+
+.img {
+  width: 100%;
+  height: 100%;
+  top: 100px;
+}
+
+  .wrapper {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+  @media (width <= 768px) {
+    .wrapper {
+      padding: 0 20px;
+    }
+  }
+  h1 {
+    margin-bottom: 1em;
+    font-size: 2em;
+  }
+  h2 {
+    text-align: center;
+    font-weight: normal;
+  }
+  
+  button {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+  
+  .carousel-wrapper {
+    position: relative;
+  }
+  .carousel {
+    height: 540px;
+    margin-bottom: 3em;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 540px;
+    text-align: center;
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    border-radius: 100px;
+  }
+ 
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100px;
+  }

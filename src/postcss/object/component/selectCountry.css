@@ -1,0 +1,75 @@
+.select {
+  position: relative;
+  margin: auto;
+  top: 100px;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.select__body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.select button {
+  position: relative;
+  width: 200px;
+  margin: auto;
+  padding: 10px;
+}
+
+.result {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff3e0;
+  border: 2px dashed #ffa726;
+  border-radius: 20px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  min-width: 300px;
+  max-width: 600px;
+  display: none; /* 最初は非表示 */
+}
+
+/* 表示されたとき */
+.result.show {
+  display: block;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.ai-reply {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
+
+

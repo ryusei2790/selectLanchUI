@@ -22,8 +22,7 @@ function sendToDify(selections) {
     return response.json();
   }).then(data => {
     console.log(data.outputs.result);
-    console.log(data.data.outputs.result);
-    const aiReply = data.data.outputs.result;
+    const aiReply = data.outputs.result;
     console.log("Difyの返答", aiReply);
 
     const encoded = encodeURIComponent(aiReply);

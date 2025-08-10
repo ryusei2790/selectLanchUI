@@ -21,8 +21,8 @@ function sendToDify(selections) {
     if (!response.ok) throw new Error("Dify送信に失敗しました。");
     return response.json();
   }).then(data => {
-    console.log(data);
-    const aiReply = data.outputs.data;
+    console.log(data.data);
+    const aiReply = data.data;
     console.log("Difyの返答", aiReply);
 
     const encoded = encodeURIComponent(aiReply);

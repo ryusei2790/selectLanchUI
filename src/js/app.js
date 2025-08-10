@@ -1,22 +1,5 @@
-// // "use strict";
-// document.addEventListener('DOMContentLoaded', async function() {
-//     console.log("DOM読み込み完了");
 
-// const { reset } = require("browser-sync");
 
-  
-//     // 3秒待つPromise関数
-//     function delay(ms) {
-//       return new Promise(resolve => setTimeout(resolve, ms));
-//     }
-  
-//     // 非同期関数で待機
-//     await delay(30000);
-  
-//     const overlay = document.getElementById('loadingOverlay');
-//     overlay.style.display = 'none';
-//     console.log("オーバーレイ非表示");
-//   });
 
 function sendToDify(selections) {
   console.log("送信開始");
@@ -53,21 +36,6 @@ function sendToDify(selections) {
       🤖 AIの提案を別ページで見る
     </a>
     `;
-  
-
-    // const resultBox = document.getElementById("resultBox");
-
-    // const aiSection = document.createElement("div");
-    // aiSection.classList.add("ai-reply");
-    // aiSection.innerHTML = `
-    // <br>
-    // <div style="padding: 1em; margin-top: 1em; background: #f3faff; border-left: 5px solid #2196f3;">
-    //   🤖 <strong>AIの提案</strong><br>
-    //   ${aiReply}
-    // </div>
-    // `;
-
-    // resultBox.appendChild(aiSection);
   })
   .catch(error => {
     console.error("エラー", error);
@@ -172,54 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
-
-// $('.dishImages1').slick({
-//   centerMode: true,
-//   centerPadding: '60px',
-//   slidesToShow: 3,
-//   responsive: [
-//     {
-//       breakpoint: 768,
-//       settings: {
-//         arrows: false,
-//         centerMode: true,
-//         centerPadding: '40px',
-//         slidesToShow: 3
-//       }
-//     },
-//     {
-//       breakpoint: 480,
-//       settings: {
-//         arrows: false,
-//         centerMode: true,
-//         centerPadding: '40px',
-//         slidesToShow: 1
-//       }
-//     }
-//   ]
-// });
-
-
-
-
-// indexページアニメーション
-// const swiperCards = new Swiper(".sample-swiper-cards .swiper-container", {
-//   pagination: {
-//     el: ".swiper-pagination",
-//     clickable: true,
-//   },
-//   navigation: {
-//     nextEl: ".swiper-button-next",
-//     prevEl: ".swiper-button-prev",
-//   },
-//   loop: true,
-//   grabCursor: true,
-//   effect: "cards",
-// });
 
 const defaultOptions = {
   // ドットインジケーターの表示

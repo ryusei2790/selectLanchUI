@@ -3,7 +3,7 @@
 
 function sendToDify(selections) {
   console.log("送信開始");
-  fetch('http://localhost:3001/send-to-dify', {
+  fetch('https://selectlanchserver.onrender.com/send-to-dify', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -21,7 +21,8 @@ function sendToDify(selections) {
     if (!response.ok) throw new Error("Dify送信に失敗しました。");
     return response.json();
   }).then(data => {
-    const aiReply = data.data.outputs.result;
+    console.log(data);
+    data.outputs.result
     console.log("Difyの返答", aiReply);
 
     const encoded = encodeURIComponent(aiReply);
@@ -153,6 +154,7 @@ const defaultOptions = {
     prevEl: ".swiper-button-prev",
   },
   loop: true, // ループの有効化
+  slidesPerView: 1,
 }
 
 // デフォルトの表示

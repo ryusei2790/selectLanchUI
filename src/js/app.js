@@ -20,22 +20,19 @@ function sendToDify(selections) {
   .then(response => {
     if (!response.ok) throw new Error("Dify送信に失敗しました。");
     return response.json();
-  }).then(data => {
-    console.log(data.data.outputs);
-    const aiReply = data.data.outputs;
+  }).then(res => {
+    console.log(res);
+  
+    // 安全に result を取得
+    const aiReply = res.data?.outputs?.result ?? "AIからの返答がありません";
     console.log("Difyの返答", aiReply);
-
-    const encoded = encodeURIComponent(aiReply);
-    const resultUrl = `/result.html?ai=${encoded}`;
-
-   
-
-    const resultBox = document.getElementById("resultBox");
-    resultBox.innerHTML = `
-    v<br>
-    <a href="${resultUrl}" target="_blank" style="color: #2196f3; font-weight: bold;">
-      🤖 AIの提案を別ページで見る
-    </a>
+  
+    const t = `/result.html?ai=${encodeURIComponent(aiReply)}`;
+    document.getElementById("resultBox").innerHTML = `
+      <br>
+      <a href="${t}" target="_blank" style="color: #2196f3; font-weight: bold;">
+        🤖 AIの提案を別ページで見る
+      </a>
     `;
   })
   .catch(error => {

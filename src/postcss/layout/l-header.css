@@ -47,6 +47,15 @@
     height: 100%;
     display: flex;
     align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1000;
+}
+
+/* フェードアウト用のクラス */
+.header__body--nav.fade-out {
+  transform: translateY(-30px);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .header__body--items {
@@ -76,6 +85,28 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+
+.close-btn {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  top: 100px; 
+  right: 30px;
+  opacity: 0;
+  transition: all 1.5s ease; 
+  z-index: 1001;
+}
+
+.close-btn img {
+  width: 100px;
+  height: 100px;
+}
+
+.close-btn.visible {
+  top: 20px;
+  opacity: 1;
+}
+
 /* --- レスポンシブ対応 --- */
 @media screen and (max-width: 1024px) {
     .header {
@@ -96,6 +127,7 @@
   
     .header__body--nav {
       width: 100%;
+      right: 0;
       justify-content: center;
     }
   
@@ -116,16 +148,18 @@
     .header {
       height: auto;
       padding: 10px;
+      position: relative; /* ボタン位置用 */
     }
   
-    .header__body--items {
-      flex-direction: column;
-      align-items: center;
+    /* .active クラスで表示 */
+    .header__body--items.active {
+      display: flex;
     }
   
     .header__body--item {
       width: 100%;
       max-width: 300px;
       text-align: center;
+      padding: 8px 0;
     }
   }

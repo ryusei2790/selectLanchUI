@@ -1,6 +1,125 @@
+// headerアニメーション
+function runMainScripts() {
+  console.log("自作アニメーション開始");
+  const navBody = document.querySelector(".header__body--nav");
+  const closeBtn = document.querySelector(".close-btn");
+  console.log(closeBtn);
+  let lastScrollTop = 0;
 
+  // 背景アクション
+  window.addEventListener("scroll", function () {
+    const scrollY = window.scrollY;
+    document.body.style.backgroundPosition = `center ${scrollY / -20}px`;
+  });
 
+  // ナビゲーションバー
+  // window.addEventListener("scroll", () => {
+  //   const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
+  //   if (currentScroll > lastScrollTop && currentScroll > 50) {
+  //     navBody.classList.add("fade-out");
+  //     closeBtn.classList.add("visible");
+  //   } else {
+  //     navBody.classList.remove("fade-out");
+  //     closeBtn.classList.remove("visible");
+  //   }
+
+  //   lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  // });
+
+  function updateNavState() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const isSmallScreen = window.innerWidth < 1024; // PC未満を判定
+  
+    if (isSmallScreen || (currentScroll > lastScrollTop && currentScroll > 50)) {
+      navBody.classList.add("fade-out");
+      closeBtn.classList.add("visible");
+    } else {
+      navBody.classList.remove("fade-out");
+      closeBtn.classList.remove("visible");
+    }
+  
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }
+  
+  window.addEventListener("scroll", updateNavState);
+  window.addEventListener("resize", updateNavState);
+  updateNavState(); 
+
+  closeBtn.addEventListener("click", () => {
+    navBody.classList.remove("fade-out");
+    closeBtn.classList.remove("visible");
+  });
+
+  function applyLettering(selector) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      const text = el.textContent;
+      el.innerHTML = '';
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        el.appendChild(span);
+      });
+    });
+  }
+
+  applyLettering(".title");
+  applyLettering(".button");
+
+  document.querySelectorAll('.button').forEach(btn => {
+    btn.addEventListener('click', animation);
+  });
+
+  // const serviceSection = document.querySelector('.service');
+  // const observer = new IntersectionObserver((entries, observer) => {
+  //   entries.forEach(entry => {
+  //     if (entry.isIntersecting) {
+  //       console.log("SERVICEセクションが表示されました");
+  //       animation();
+  //       observer.unobserve(entry.target);
+  //     }
+  //   });
+  // }, {
+  //   threshold: 0.5
+  // });
+  // observer.observe(serviceSection);
+
+  function animation () {
+    const timeline = gsap.timeline();
+
+    timeline.set(".button", { visibility: 'hidden', opacity: 0 });
+
+    const titleSpans = document.querySelectorAll(".title span");
+    timeline.fromTo(titleSpans,
+      {
+        opacity: 0,
+        bottom: "-80px"
+      }, {
+        opacity: 1,
+        bottom: "0px",
+        ease: "back.out(1.7)",
+        stagger: 0.05
+      }
+    );
+
+    timeline.fromTo('.is-slide-up', 
+      { opacity: 0, y: 60 }, 
+      { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }, 
+      '<' // 同時に開始
+    );
+
+    timeline.to(".button", { visibility: 'visible', opacity: 1, duration: 0.2 });
+  }
+}
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    runMainScripts();
+  }, 5000);  // 5000ミリ秒 = 5秒後に実行
+});
+
+// DIFYセクション
 function sendToDify(selections) {
   console.log("送信開始");
   fetch('https://selectlanchserver.onrender.com/send-to-dify', {
@@ -40,6 +159,7 @@ function sendToDify(selections) {
   });
 }
 
+// DOMセクション
 document.addEventListener('DOMContentLoaded', function() {
   let finalSelections = {
     selectedCountry: null,
@@ -137,8 +257,8 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 
-
-
+// おまけセクション
+// Swiperセクション
 const defaultOptions = {
   // ドットインジケーターの表示
   pagination: {
@@ -208,3 +328,4 @@ const swiperCreative = new Swiper(".sample-swiper-creative .swiper-container", {
     },
   },
 });
+

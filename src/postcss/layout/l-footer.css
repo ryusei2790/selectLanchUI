@@ -6,6 +6,8 @@
     height: 417px;
     color: white;
     background-color: rgb(51, 51, 51);
+    flex-shrink: 0; 
+    
 }
 
 .container {

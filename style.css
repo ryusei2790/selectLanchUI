@@ -324,16 +324,23 @@ a{
 html {
     font-size: 15px;
 }
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* body {
     width: 100%;
     height: 100%;
     position: fixed;
 
 }
+
 .main {
     width: 100vw;
     height: 100%;
 }
+
 section {
     width: 100vw;
     height: 100%;
@@ -344,6 +351,7 @@ section {
     justify-content: center;
     align-items: center;
 }
+
 h1 {
     position: relative;
     height: 64px;
@@ -352,6 +360,8 @@ h1 {
     font-weight: 100;
     font-size: 50px;
 }
+
+
 @media (max-width: 600px) {
     section {
       padding: 40px 20px; 
@@ -365,6 +375,8 @@ h1 {
       margin-bottom: 15px;
     }
 }
+
+
 @media (min-width: 601px) and (max-width: 1024px) {
     section {
       padding: 60px 30px;
@@ -377,58 +389,47 @@ h1 {
       margin-bottom: 18px;
     }
 }
-/* #loadingOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-  }
 
-  /* #loadingOverlay img {
-    width: 200px; 
-  } */
 .img {
   width: 100%;
   height: 100%;
   top: 100px;
 }
-.wrapper {
+
+  .wrapper {
     width: 100%;
     max-width: 960px;
     margin: 0 auto;
     overflow-x: hidden;
   }
-@media (width <= 768px) {
+  @media (width <= 768px) {
     .wrapper {
       padding: 0 20px;
     }
   }
-h1 {
+  h1 {
     margin-bottom: 1em;
     font-size: 2em;
   }
-h2 {
+  h2 {
     text-align: center;
     font-weight: normal;
   }
-button {
+  
+  button {
     border: 0;
     padding: 0;
     background-color: transparent;
   }
-.carousel-wrapper {
+  
+  .carousel-wrapper {
     position: relative;
   }
-.carousel {
+  .carousel {
     height: 540px;
     margin-bottom: 3em;
   }
-.item {
+  .item {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -439,12 +440,231 @@ button {
     font-weight: bold;
     border-radius: 100px;
   }
-img {
+ 
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 100px;
   }
+
+   */
+/* ベースカラーをパステル系に変更 */
+body {
+  background: #FFF9F9; /* 優しい薄いピンクベージュ */
+  color: #4A4A4A; /* 柔らかいダークグレー */
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 100vh;
+}
+.main {
+  width: 100vw;
+  height: 100%;
+  flex: 1 0 auto;
+}
+/* セクション背景に薄いシャドウと丸みを追加 */
+section {
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(255, 182, 193, 0.25); /* ピンクの影 */
+  padding: 60px 40px;
+  margin: 20px auto;
+  max-width: 700px;
+  width: 100vw;
+  height: 100%;
+  padding: 65px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* 見出しを丸みのあるフォントに変え、柔らかい色に */
+h1 {
+  font-weight: 500;
+  color: #E75480; /* 明るいローズピンク */
+  font-size: 42px;
+  margin-bottom: 0.8em;
+  text-shadow: 1px 1px 2px rgba(255, 182, 193, 0.5);
+}
+/* 中見出し */
+h2 {
+  font-weight: 400;
+  color: #D67C92;
+  margin-bottom: 1em;
+}
+/* 画像の角丸と影を強調 */
+img {
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+/* ボタンに丸みとピンクのグラデーション */
+button {
+  background: linear-gradient(45deg, #F48FB1, #F06292);
+  color: white;
+  font-size: 1.2rem;
+  padding: 14px 28px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(244, 143, 177, 0.6);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1.5em;
+  border: none;
+}
+button:hover {
+  background: linear-gradient(45deg, #F06292, #E91E63);
+}
+/* カルーセルのアイテムも丸み＋背景色追加 */
+.item {
+  background: #FFD1DC; /* 優しいピンク */
+  border-radius: 40px;
+  box-shadow: 0 6px 20px rgba(255, 192, 203, 0.4);
+  color: #6B2747;
+  font-weight: 600;
+}
+/* レスポンシブ調整 */
+@media (max-width: 600px) {
+  section {
+    padding: 30px 20px;
+    margin: 15px 10px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+}
+/* ベースは先ほどのスタイルに加えて以下を追加・調整してください */
+/* 小型スマホ向け（320px〜） */
+@media (max-width: 360px) {
+  section {
+    padding: 20px 12px;
+    margin: 10px 8px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 14px 20px;
+    width: 100%;  /* フル幅にして押しやすく */
+    border-radius: 24px;
+  }
+
+  .item {
+    font-size: 22px;
+    padding: 20px;
+  }
+
+  img {
+    border-radius: 20px;
+  }
+}
+/* スマホ〜小型タブレット（361px〜600px） */
+@media (min-width: 361px) and (max-width: 600px) {
+  section {
+    padding: 30px 16px;
+    margin: 15px 10px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  button {
+    font-size: 1.1rem;
+    padding: 16px 24px;
+    width: 90%;
+    max-width: 320px;
+  }
+
+  .item {
+    font-size: 26px;
+    padding: 25px;
+  }
+
+  img {
+    border-radius: 22px;
+  }
+}
+/* タブレット〜小型PC（601px〜1024px） */
+@media (min-width: 601px) and (max-width: 1024px) {
+  section {
+    padding: 50px 30px;
+    margin: 20px auto;
+    max-width: 700px;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: 18px 30px;
+    width: auto;
+  }
+
+  .item {
+    font-size: 28px;
+    padding: 30px;
+  }
+
+  img {
+    border-radius: 24px;
+  }
+}
+/* PC（1025px〜） */
+/* @media (min-width: 1025px) {
+  section {
+    padding: 60px 40px;
+    margin: 30px auto;
+    max-width: 960px;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  button {
+    font-size: 1.3rem;
+    padding: 20px 40px;
+  }
+
+  .item {
+    font-size: 32px;
+    padding: 40px;
+  }
+
+  img {
+    border-radius: 28px;
+  }
+} */
+/* 画像レスポンシブ共通設定 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+/* ボタン共通 */
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
 .footer {
     top: 100%;
     position: relative;
@@ -557,6 +777,14 @@ img {
     height: 100%;
     display: flex;
     align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1000;
+}
+/* フェードアウト用のクラス */
+.header__body--nav.fade-out {
+  transform: translateY(-30px);
+  opacity: 0;
+  pointer-events: none;
 }
 .header__body--items {
     width: 100%;
@@ -582,6 +810,24 @@ img {
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
+.close-btn {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  top: 100px; 
+  right: 30px;
+  opacity: 0;
+  transition: all 1.5s ease; 
+  z-index: 1001;
+}
+.close-btn img {
+  width: 100px;
+  height: 100px;
+}
+.close-btn.visible {
+  top: 20px;
+  opacity: 1;
+}
 /* --- レスポンシブ対応 --- */
 @media screen and (max-width: 1024px) {
     .header {
@@ -602,6 +848,7 @@ img {
   
     .header__body--nav {
       width: 100%;
+      right: 0;
       justify-content: center;
     }
   
@@ -621,17 +868,19 @@ img {
     .header {
       height: auto;
       padding: 10px;
+      position: relative; /* ボタン位置用 */
     }
   
-    .header__body--items {
-      flex-direction: column;
-      align-items: center;
+    /* .active クラスで表示 */
+    .header__body--items.active {
+      display: flex;
     }
   
     .header__body--item {
       width: 100%;
       max-width: 300px;
       text-align: center;
+      padding: 8px 0;
     }
   }
 button {

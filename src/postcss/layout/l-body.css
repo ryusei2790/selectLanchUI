@@ -6,16 +6,21 @@ html, body {
   padding: 0;
 }
 
-/* body {
+body {
     width: 100%;
     height: 100%;
     position: fixed;
-
+    background: #FFF9F9; 
+    color: #4A4A4A; 
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    min-height: 100vh;
 }
 
 .main {
     width: 100vw;
     height: 100%;
+    flex: 1 0 auto;
 }
 
 section {
@@ -36,58 +41,10 @@ h1 {
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
     font-size: 50px;
-}
-
-
-@media (max-width: 600px) {
-    section {
-      padding: 40px 20px; 
-      min-height: auto; 
-    }
-  
-    h1 {
-      font-size: 28px;
-      line-height: 1.3;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-}
-
-
-@media (min-width: 601px) and (max-width: 1024px) {
-    section {
-      padding: 60px 30px;
-    }
-  
-    h1 {
-      font-size: 40px;
-      line-height: 1.3;
-      text-align: center;
-      margin-bottom: 18px;
-    }
-}
-
-.img {
-  width: 100%;
-  height: 100%;
-  top: 100px;
-}
-
-  .wrapper {
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-    overflow-x: hidden;
-  }
-  @media (width <= 768px) {
-    .wrapper {
-      padding: 0 20px;
-    }
-  }
-  h1 {
     margin-bottom: 1em;
     font-size: 2em;
-  }
+}
+
   h2 {
     text-align: center;
     font-weight: normal;
@@ -95,61 +52,82 @@ h1 {
   
   button {
     border: 0;
-    padding: 0;
     background-color: transparent;
+    background: linear-gradient(45deg, #F48FB1, #F06292);
+    color: white;
+    font-size: 1.2rem;
+    padding: 14px 28px;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(244, 143, 177, 0.6);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1.5em;
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
   }
+
+  button:hover {
+    background: linear-gradient(45deg, #F06292, #E91E63);
+  }
+
+  img {
+    border-radius: 28px;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+  }
+
   
   .carousel-wrapper {
     position: relative;
   }
+
   .carousel {
-    height: 540px;
+    height: 100%;
     margin-bottom: 3em;
   }
+
+  .wrapper {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
   .item {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 540px;
+    height: auto;
     text-align: center;
-    color: #fff;
     font-size: 32px;
-    font-weight: bold;
-    border-radius: 100px;
+    background: #FFD1DC; 
+    border-radius: 40px;
+    box-shadow: 0 6px 20px rgba(255, 192, 203, 0.4);
+    color: #6B2747;
+    font-weight: 600;
   }
- 
-  img {
+
+
+  .img {
     width: 100%;
     height: 100%;
+    top: 100px;
+    bottom: 100px;
     object-fit: cover;
     border-radius: 100px;
   }
-
-   */
-
-   /* ベースカラーをパステル系に変更 */
-body {
-  background: #FFF9F9; /* 優しい薄いピンクベージュ */
-  color: #4A4A4A; /* 柔らかいダークグレー */
-  font-family: 'Roboto', sans-serif;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  min-height: 100vh;
-}
-
-.main {
-  width: 100vw;
-  height: 100%;
-  flex: 1 0 auto;
-}
-
-
-/* セクション背景に薄いシャドウと丸みを追加 */
-section {
+  
+/* section {これ要らなそう
   background: #FFFFFF;
   border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(255, 182, 193, 0.25); /* ピンクの影 */
+  box-shadow: 0 8px 16px rgba(255, 182, 193, 0.25); 
   padding: 60px 40px;
   margin: 20px auto;
   max-width: 700px;
@@ -161,62 +139,24 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} */
 
-/* 見出しを丸みのあるフォントに変え、柔らかい色に */
-h1 {
+
+/* h1 {
   font-weight: 500;
-  color: #E75480; /* 明るいローズピンク */
+  color: #E75480; 
   font-size: 42px;
   margin-bottom: 0.8em;
   text-shadow: 1px 1px 2px rgba(255, 182, 193, 0.5);
 }
 
-/* 中見出し */
 h2 {
   font-weight: 400;
   color: #D67C92;
   margin-bottom: 1em;
-}
+} */
 
-/* 画像の角丸と影を強調 */
-img {
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* ボタンに丸みとピンクのグラデーション */
-button {
-  background: linear-gradient(45deg, #F48FB1, #F06292);
-  color: white;
-  font-size: 1.2rem;
-  padding: 14px 28px;
-  border-radius: 30px;
-  box-shadow: 0 4px 12px rgba(244, 143, 177, 0.6);
-  cursor: pointer;
-  transition: background 0.3s ease;
-  margin-top: 1.5em;
-  border: none;
-}
-
-button:hover {
-  background: linear-gradient(45deg, #F06292, #E91E63);
-}
-
-/* カルーセルのアイテムも丸み＋背景色追加 */
-.item {
-  background: #FFD1DC; /* 優しいピンク */
-  border-radius: 40px;
-  box-shadow: 0 6px 20px rgba(255, 192, 203, 0.4);
-  color: #6B2747;
-  font-weight: 600;
-}
-
-/* レスポンシブ調整 */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   section {
     padding: 30px 20px;
     margin: 15px 10px;
@@ -230,12 +170,10 @@ button:hover {
     font-size: 1rem;
     padding: 12px 20px;
   }
-}
+} */
 
-/* ベースは先ほどのスタイルに加えて以下を追加・調整してください */
 
-/* 小型スマホ向け（320px〜） */
-@media (max-width: 360px) {
+/* @media (max-width: 360px) {
   section {
     padding: 20px 12px;
     margin: 10px 8px;
@@ -248,7 +186,7 @@ button:hover {
   button {
     font-size: 1rem;
     padding: 14px 20px;
-    width: 100%;  /* フル幅にして押しやすく */
+    width: 100%;  
     border-radius: 24px;
   }
 
@@ -260,10 +198,9 @@ button:hover {
   img {
     border-radius: 20px;
   }
-}
+} */
 
-/* スマホ〜小型タブレット（361px〜600px） */
-@media (min-width: 361px) and (max-width: 600px) {
+/* @media (min-width: 361px) and (max-width: 600px) {
   section {
     padding: 30px 16px;
     margin: 15px 10px;
@@ -288,10 +225,9 @@ button:hover {
   img {
     border-radius: 22px;
   }
-}
+} */
 
-/* タブレット〜小型PC（601px〜1024px） */
-@media (min-width: 601px) and (max-width: 1024px) {
+/* @media (min-width: 601px) and (max-width: 1024px) {
   section {
     padding: 50px 30px;
     margin: 20px auto;
@@ -316,19 +252,14 @@ button:hover {
   img {
     border-radius: 24px;
   }
-}
+} */
 
-/* PC（1025px〜） */
-/* @media (min-width: 1025px) {
-  section {
-    padding: 60px 40px;
-    margin: 30px auto;
-    max-width: 960px;
-  }
 
-  h1 {
+@media (min-width: 1025px) {
+
+  /* h1 {
     font-size: 42px;
-  }
+  } */
 
   button {
     font-size: 1.3rem;
@@ -343,20 +274,37 @@ button:hover {
   img {
     border-radius: 28px;
   }
-} */
-
-/* 画像レスポンシブ共通設定 */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
 }
 
-/* ボタン共通 */
-button {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
+@media (max-width: 600px) {
+  section {
+    padding: 40px 20px; 
+    min-height: auto; 
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+
+@media (width <= 768px) {
+  .wrapper {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  section {
+    padding: 60px 30px;
+  }
+
+  h1 {
+    font-size: 40px;
+    line-height: 1.3;
+    text-align: center;
+    margin-bottom: 18px;
+  }
 }

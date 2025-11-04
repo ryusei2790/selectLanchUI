@@ -208,3 +208,108 @@ const swiperCreative = new Swiper(".sample-swiper-creative .swiper-container", {
     },
   },
 });
+
+// ===== searchLanch.html 用の検索機能 =====
+if (document.getElementById('searchInput')) {
+  let dishesData = {};
+  let currentCategory = 'all';
+
+  // dishes.jsonを読み込む
+  fetch('/dishes.json')
+    .then(response => response.json())
+    .then(data => {
+      dishesData = data;
+      displayAllDishes();
+    })
+    .catch(error => {
+      console.error('料理データの読み込みに失敗しました:', error);
+    });
+
+  // 検索ボタンのイベント
+  document.getElementById('searchButton').addEventListener('click', performSearch);
+
+  // Enterキーでも検索できるように
+  document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+
+  // カテゴリーフィルターのイベント
+  document.querySelectorAll('.filter__button').forEach(button => {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('.filter__button').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      currentCategory = this.dataset.category;
+      performSearch();
+    });
+  });
+
+  function performSearch() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const resultsGrid = document.getElementById('resultsGrid');
+
+    if (!searchTerm) {
+      displayAllDishes();
+      return;
+    }
+
+    const results = [];
+
+    // 全ての地域と国を検索
+    for (const [region, countries] of Object.entries(dishesData)) {
+      for (const [country, dishes] of Object.entries(countries)) {
+        dishes.forEach(dish => {
+          const dishName = typeof dish === 'string' ? dish : dish.name || '';
+          if (dishName.toLowerCase().includes(searchTerm) ||
+              country.toLowerCase().includes(searchTerm) ||
+              region.toLowerCase().includes(searchTerm)) {
+            results.push({ dish: dishName, country, region });
+          }
+        });
+      }
+    }
+
+    displayResults(results);
+  }
+
+  function displayAllDishes() {
+    const results = [];
+
+    for (const [region, countries] of Object.entries(dishesData)) {
+      for (const [country, dishes] of Object.entries(countries)) {
+        dishes.forEach(dish => {
+          const dishName = typeof dish === 'string' ? dish : dish.name || '';
+          results.push({ dish: dishName, country, region });
+        });
+      }
+    }
+
+    displayResults(results);
+  }
+
+  function displayResults(results) {
+    const resultsGrid = document.getElementById('resultsGrid');
+
+    if (results.length === 0) {
+      resultsGrid.innerHTML = '<p class="no-results">検索結果が見つかりませんでした</p>';
+      return;
+    }
+
+    resultsGrid.innerHTML = results.map(item => `
+      <div class="dish-card">
+        <div class="dish-card__header">
+          <h3 class="dish-card__name">${item.dish}</h3>
+        </div>
+        <div class="dish-card__body">
+          <p class="dish-card__country">
+            <i class="fas fa-map-marker-alt"></i> ${item.country}
+          </p>
+          <p class="dish-card__region">
+            <i class="fas fa-globe"></i> ${item.region}
+          </p>
+        </div>
+      </div>
+    `).join('');
+  }
+}

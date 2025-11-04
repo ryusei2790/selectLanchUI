@@ -1,0 +1,128 @@
+/* howtouse.html のスタイル */
+.howto {
+  padding: 4rem 0;
+  min-height: calc(100vh - 200px);
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.howto__body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.howto__title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 3px solid #e0e0e0;
+}
+
+.howto__section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 15px;
+  border-left: 5px solid #667eea;
+}
+
+.howto__subtitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.howto__text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.howto__list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.howto__list li {
+  padding: 0.75rem 0;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.howto__list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.howto__faq {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.howto__question {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.howto__question:before {
+  content: "Q";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.howto__answer {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.7;
+  padding-left: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .howto__body {
+    padding: 1.5rem;
+  }
+
+  .howto__title {
+    font-size: 2rem;
+  }
+
+  .howto__subtitle {
+    font-size: 1.5rem;
+  }
+
+  .howto__section {
+    padding: 1.5rem;
+  }
+}

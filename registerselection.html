@@ -34,13 +34,42 @@
         </nav>
     </div>
 </header>
-    <main name="main">
-        <section name="selectCountry">
-    <!-- <button id="selectCountryButton"><img src="/assets/img/logo.png" /></button>
-    <div id="country">
-        
-    </div> -->
-</section>
+    <main class="main">
+        <section class="register">
+            <div class="register__body">
+                <h1 class="register__title">料理を登録する</h1>
+                <form class="register__form" id="registerForm">
+                    <div class="form__group">
+                        <label for="dishName" class="form__label">料理名</label>
+                        <input type="text" id="dishName" class="form__input" required>
+                    </div>
+                    <div class="form__group">
+                        <label for="countryName" class="form__label">国名</label>
+                        <input type="text" id="countryName" class="form__input" required>
+                    </div>
+                    <div class="form__group">
+                        <label for="category" class="form__label">カテゴリー</label>
+                        <select id="category" class="form__select" required>
+                            <option value="">選択してください</option>
+                            <option value="主食">主食</option>
+                            <option value="主菜">主菜</option>
+                            <option value="副菜">副菜</option>
+                            <option value="デザート">デザート</option>
+                        </select>
+                    </div>
+                    <div class="form__group">
+                        <label for="description" class="form__label">説明</label>
+                        <textarea id="description" class="form__textarea" rows="4"></textarea>
+                    </div>
+                    <div class="form__group">
+                        <label for="imageUrl" class="form__label">画像URL</label>
+                        <input type="url" id="imageUrl" class="form__input">
+                    </div>
+                    <button type="submit" class="form__submit">登録する</button>
+                </form>
+                <div class="register__message" id="registerMessage"></div>
+            </div>
+        </section>
     </main>
     <footer class="footer">
     <div class="container">

@@ -40,6 +40,16 @@ function sendToDify(selections) {
   });
 }
 
+// AOSアニメーションの初期化
+if (typeof AOS !== 'undefined') {
+  AOS.init({
+    duration: 800,
+    easing: 'ease-out',
+    once: true,
+    offset: 100
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   let finalSelections = {
     selectedCountry: null,

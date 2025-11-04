@@ -1,48 +1,50 @@
 /* howtouse.html のスタイル */
 .howto {
   padding: 4rem 0;
-  min-height: calc(100vh - 200px);
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  min-height: 100%;
+  background: #fafafa;
 }
 
 .howto__body {
   max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem;
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
 }
 
 .howto__title {
   font-size: 2.5rem;
-  font-weight: bold;
-  color: #2c3e50;
+  font-weight: 700;
+  color: #1a1a1a;
   text-align: center;
   margin-bottom: 3rem;
   padding-bottom: 1.5rem;
-  border-bottom: 3px solid #e0e0e0;
+  border-bottom: 2px solid #f0f0f0;
+  letter-spacing: -0.02em;
 }
 
 .howto__section {
   margin-bottom: 3rem;
   padding: 2rem;
-  background: #f8f9fa;
-  border-radius: 15px;
-  border-left: 5px solid #667eea;
+  background: #fafafa;
+  border-radius: 12px;
+  border-left: 4px solid #2196F3;
 }
 
 .howto__subtitle {
   font-size: 1.8rem;
-  font-weight: bold;
-  color: #667eea;
+  font-weight: 600;
+  color: #1a1a1a;
   margin-bottom: 1rem;
 }
 
 .howto__text {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: #4a4a4a;
   margin-bottom: 1rem;
 }
 
@@ -57,7 +59,7 @@
   padding-left: 2rem;
   position: relative;
   font-size: 1rem;
-  color: #555;
+  color: #4a4a4a;
   line-height: 1.6;
 }
 
@@ -65,7 +67,7 @@
   content: "✓";
   position: absolute;
   left: 0;
-  color: #667eea;
+  color: #2196F3;
   font-weight: bold;
   font-size: 1.2rem;
 }
@@ -74,14 +76,14 @@
   margin-bottom: 2rem;
   padding: 1.5rem;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
 }
 
 .howto__question {
   font-size: 1.2rem;
-  font-weight: bold;
-  color: #2c3e50;
+  font-weight: 600;
+  color: #1a1a1a;
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
@@ -95,16 +97,16 @@
   justify-content: center;
   width: 30px;
   height: 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #2196F3;
   color: white;
   border-radius: 50%;
-  font-weight: bold;
+  font-weight: 600;
   flex-shrink: 0;
 }
 
 .howto__answer {
   font-size: 1rem;
-  color: #666;
+  color: #666666;
   line-height: 1.7;
   padding-left: 2.5rem;
 }

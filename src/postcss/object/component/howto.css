@@ -1,0 +1,130 @@
+/* howtouse.html のスタイル */
+.howto {
+  padding: 4rem 0;
+  min-height: 100%;
+  background: #fafafa;
+}
+
+.howto__body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+}
+
+.howto__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  letter-spacing: -0.02em;
+}
+
+.howto__section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: #fafafa;
+  border-radius: 12px;
+  border-left: 4px solid #2196F3;
+}
+
+.howto__subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.howto__text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4a4a4a;
+  margin-bottom: 1rem;
+}
+
+.howto__list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.howto__list li {
+  padding: 0.75rem 0;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1rem;
+  color: #4a4a4a;
+  line-height: 1.6;
+}
+
+.howto__list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #2196F3;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.howto__faq {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.howto__question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.howto__question:before {
+  content: "Q";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: #2196F3;
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.howto__answer {
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.7;
+  padding-left: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .howto__body {
+    padding: 1.5rem;
+  }
+
+  .howto__title {
+    font-size: 2rem;
+  }
+
+  .howto__subtitle {
+    font-size: 1.5rem;
+  }
+
+  .howto__section {
+    padding: 1.5rem;
+  }
+}

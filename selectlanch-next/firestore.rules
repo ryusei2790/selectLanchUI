@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      // Anyone can read user profiles
+      allow read: if true;
+
+      // Only the user can create/update their own profile
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
+
+      // Users cannot delete their profiles (prevent accidental deletion)
+      allow delete: if false;
+    }
+
+    // Dishes collection
+    match /dishes/{dishId} {
+      // Anyone can read dishes
+      allow read: if true;
+
+      // Only signed-in users can create dishes
+      allow create: if isSignedIn()
+        && request.resource.data.authorId == request.auth.uid
+        && request.resource.data.likesCount == 0;
+
+      // Only the author can update their dish
+      // Prevent changing authorId and likesCount through this endpoint
+      allow update: if isOwner(resource.data.authorId)
+        && request.resource.data.authorId == resource.data.authorId
+        && request.resource.data.likesCount == resource.data.likesCount;
+
+      // Only the author can delete their dish
+      allow delete: if isOwner(resource.data.authorId);
+    }
+
+    // Likes collection
+    match /likes/{likeId} {
+      // Anyone can read likes
+      allow read: if true;
+
+      // Only signed-in users can create likes for themselves
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid;
+
+      // Users cannot update likes
+      allow update: if false;
+
+      // Only the user who created the like can delete it
+      allow delete: if isOwner(resource.data.userId);
+    }
+  }
+}

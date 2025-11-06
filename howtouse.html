@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript" src="/assets/js/bundle.min.js"></script>
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     
     <!-- WPでは自動でトップのCSSは読み込まれるっぽい -->
     <link rel="stylesheet" href="style.css">
@@ -34,83 +36,15 @@
         </nav>
     </div>
 </header>
-    <main class="main">
-        <section class="howto">
-            <div class="container">
-                <div class="howto__body">
-                <h1 class="howto__title" data-aos="fade-up">使い方</h1>
-
-                <div class="howto__section" data-aos="fade-up" data-aos-delay="100">
-                    <h2 class="howto__subtitle">selectLanch とは?</h2>
-                    <p class="howto__text">
-                        selectLanchは、世界中の料理をランダムに選んで、献立を決めるお手伝いをするサービスです。
-                        国・主食・主菜をルーレット形式で選び、AIがレシピを提案してくれます。
-                    </p>
-                </div>
-
-                <div class="howto__section" data-aos="fade-up" data-aos-delay="200">
-                    <h2 class="howto__subtitle">1. selectLanch - 料理を選ぶ</h2>
-                    <p class="howto__text">
-                        トップページから「selectLanch」を選択すると、ルーレット形式で料理を選ぶことができます。
-                    </p>
-                    <ul class="howto__list">
-                        <li>「国決めルーレット」ボタンで国を選択</li>
-                        <li>「主食」ボタンで主食を選択</li>
-                        <li>「主菜」ボタンで主菜を選択</li>
-                        <li>「AIにレシピ聞く」ボタンでレシピを表示</li>
-                    </ul>
-                </div>
-
-                <div class="howto__section" data-aos="fade-up" data-aos-delay="300">
-                    <h2 class="howto__subtitle">2. searchLanch - 料理を検索</h2>
-                    <p class="howto__text">
-                        料理名や国名で検索して、登録されている料理を探すことができます。
-                        検索ボックスにキーワードを入力して検索してください。
-                    </p>
-                </div>
-
-                <div class="howto__section" data-aos="fade-up" data-aos-delay="400">
-                    <h2 class="howto__subtitle">3. registerselection - 料理を登録</h2>
-                    <p class="howto__text">
-                        お気に入りの料理を登録することができます。
-                    </p>
-                    <ul class="howto__list">
-                        <li>料理名を入力</li>
-                        <li>国名を入力</li>
-                        <li>カテゴリーを選択(主食/主菜/副菜/デザート)</li>
-                        <li>説明と画像URLを入力(任意)</li>
-                        <li>「登録する」ボタンで登録完了</li>
-                    </ul>
-                </div>
-
-                <div class="howto__section" data-aos="fade-up" data-aos-delay="500">
-                    <h2 class="howto__subtitle">よくある質問</h2>
-                    <div class="howto__faq">
-                        <h3 class="howto__question">Q. 料理は何種類登録されていますか?</h3>
-                        <p class="howto__answer">A. 世界中の料理が随時追加されています。新しい料理も登録できます。</p>
-                    </div>
-                    <div class="howto__faq">
-                        <h3 class="howto__question">Q. AIのレシピは正確ですか?</h3>
-                        <p class="howto__answer">A. AIが提案するレシピは参考情報です。実際の調理の際は、信頼できるレシピサイトも併せてご確認ください。</p>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </section>
+    <main name="main">
+        <!-- Main content here -->
     </main>
     <footer class="footer">
     <div class="container">
     <div class="footer__head">
         <img src="/assets/img/logo.png" />
-        <!-- <h6>
-            DIGITAL PROJECT
-        </h6> -->
     </div>
     <div class="footer__information">
-        <!-- <h3>
-            information
-        </h3> -->
-        <!-- ここってdivで括ったほうがいいのかな？ -->
          <ul>
                 <li class="header__body--item"><a href="selectLanch.html">selectLanch</a></li>
                 <li class="header__body--item"><a href="searchLanch.html">serchLanch</a></li>
@@ -122,18 +56,7 @@
 
     </div>
     <div class="footer__foot">
-        <!-- <h3>
-            Social Media
-        </h3> -->
-        <!-- 機械的にはnavとかで明示するといい -->
         <nav>
-            <!-- <ul class="SocialLogo">
-                <li>facebook</li>
-                <li>tweeter</li>
-                <li>instagram</li>
-                <li>pinterest</li>
-            </ul> -->
-            <!-- <img src="/assets/img/footer_logo.png"/> -->
         </nav>
         &copy; 2025 selectLanch
     </div>
@@ -141,7 +64,8 @@
 </div>
 </footer>
     <foot>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script type="text/javascript" src="/assets/js/bundle.min.js"></script>
     </foot>
 
 </body>

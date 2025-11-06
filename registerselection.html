@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript" src="/assets/js/bundle.min.js"></script>
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     
     <!-- WPでは自動でトップのCSSは読み込まれるっぽい -->
     <link rel="stylesheet" href="style.css">
@@ -34,58 +36,15 @@
         </nav>
     </div>
 </header>
-    <main class="main">
-        <section class="register">
-            <div class="container">
-                <div class="register__body" data-aos="fade-up">
-                <h1 class="register__title">料理を登録する</h1>
-                <form class="register__form" id="registerForm">
-                    <div class="form__group" data-aos="fade-up" data-aos-delay="100">
-                        <label for="dishName" class="form__label">料理名</label>
-                        <input type="text" id="dishName" class="form__input" required>
-                    </div>
-                    <div class="form__group" data-aos="fade-up" data-aos-delay="200">
-                        <label for="countryName" class="form__label">国名</label>
-                        <input type="text" id="countryName" class="form__input" required>
-                    </div>
-                    <div class="form__group" data-aos="fade-up" data-aos-delay="300">
-                        <label for="category" class="form__label">カテゴリー</label>
-                        <select id="category" class="form__select" required>
-                            <option value="">選択してください</option>
-                            <option value="主食">主食</option>
-                            <option value="主菜">主菜</option>
-                            <option value="副菜">副菜</option>
-                            <option value="デザート">デザート</option>
-                        </select>
-                    </div>
-                    <div class="form__group" data-aos="fade-up" data-aos-delay="400">
-                        <label for="description" class="form__label">説明</label>
-                        <textarea id="description" class="form__textarea" rows="4"></textarea>
-                    </div>
-                    <div class="form__group" data-aos="fade-up" data-aos-delay="500">
-                        <label for="imageUrl" class="form__label">画像URL</label>
-                        <input type="url" id="imageUrl" class="form__input">
-                    </div>
-                    <button type="submit" class="form__submit" data-aos="fade-up" data-aos-delay="600">登録する</button>
-                </form>
-                <div class="register__message" id="registerMessage"></div>
-            </div>
-            </div>
-        </section>
+    <main name="main">
+        <!-- Main content here -->
     </main>
     <footer class="footer">
     <div class="container">
     <div class="footer__head">
         <img src="/assets/img/logo.png" />
-        <!-- <h6>
-            DIGITAL PROJECT
-        </h6> -->
     </div>
     <div class="footer__information">
-        <!-- <h3>
-            information
-        </h3> -->
-        <!-- ここってdivで括ったほうがいいのかな？ -->
          <ul>
                 <li class="header__body--item"><a href="selectLanch.html">selectLanch</a></li>
                 <li class="header__body--item"><a href="searchLanch.html">serchLanch</a></li>
@@ -97,18 +56,7 @@
 
     </div>
     <div class="footer__foot">
-        <!-- <h3>
-            Social Media
-        </h3> -->
-        <!-- 機械的にはnavとかで明示するといい -->
         <nav>
-            <!-- <ul class="SocialLogo">
-                <li>facebook</li>
-                <li>tweeter</li>
-                <li>instagram</li>
-                <li>pinterest</li>
-            </ul> -->
-            <!-- <img src="/assets/img/footer_logo.png"/> -->
         </nav>
         &copy; 2025 selectLanch
     </div>
@@ -116,7 +64,8 @@
 </div>
 </footer>
     <foot>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script type="text/javascript" src="/assets/js/bundle.min.js"></script>
     </foot>
 
 </body>

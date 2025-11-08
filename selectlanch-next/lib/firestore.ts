@@ -15,7 +15,7 @@ import {
   increment,
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { Dish, DishCategory, User, Like } from '@/types';
+import { Dish, DishCategory, User, Like, AIRecipe } from '@/types';
 
 // User operations
 export const getUserProfile = async (uid: string): Promise<User | null> => {
@@ -204,4 +204,78 @@ export const getUserLikedDishes = async (userId: string): Promise<Dish[]> => {
   }
 
   return dishes;
+};
+
+// Roulette operations
+export const getCountriesByRegion = async (
+  region?: string
+): Promise<string[]> => {
+  const constraints: QueryConstraint[] = [];
+
+  if (region) {
+    constraints.push(where('region', '==', region));
+  }
+
+  const q = query(collection(db, 'dishes'), ...constraints);
+  const querySnapshot = await getDocs(q);
+
+  const countries = new Set<string>();
+  querySnapshot.docs.forEach((doc) => {
+    countries.add(doc.data().country);
+  });
+
+  return Array.from(countries).sort();
+};
+
+export const getDishesByCountryAndCategory = async (
+  country: string,
+  category: DishCategory
+): Promise<Dish[]> => {
+  const q = query(
+    collection(db, 'dishes'),
+    where('country', '==', country),
+    where('category', '==', category)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  })) as Dish[];
+};
+
+// AI Recipe operations
+export const saveAIRecipe = async (
+  recipeData: Omit<AIRecipe, 'id' | 'createdAt'>
+): Promise<string> => {
+  const newRecipe = {
+    ...recipeData,
+    createdAt: Timestamp.now(),
+  };
+  const docRef = await addDoc(collection(db, 'recipes'), newRecipe);
+  return docRef.id;
+};
+
+export const getUserRecipes = async (userId: string): Promise<AIRecipe[]> => {
+  const q = query(
+    collection(db, 'recipes'),
+    where('userId', '==', userId),
+    orderBy('createdAt', 'desc')
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  })) as AIRecipe[];
+};
+
+export const getRecipe = async (recipeId: string): Promise<AIRecipe | null> => {
+  const recipeDoc = await getDoc(doc(db, 'recipes', recipeId));
+  if (recipeDoc.exists()) {
+    return { ...recipeDoc.data(), id: recipeDoc.id } as AIRecipe;
+  }
+  return null;
 };

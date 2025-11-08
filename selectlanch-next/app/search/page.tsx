@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import DishCard from '@/components/DishCard';
 import { searchDishes } from '@/lib/firestore';
@@ -66,13 +67,18 @@ export default function SearchPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 py-8 px-4">
+      <main className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-red-50 py-8 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="mb-8 text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">料理を検索</h1>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8 text-center"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">料理を検索</h1>
             <p className="text-gray-600">料理名、国名、地域で検索できます</p>
-          </div>
+          </motion.div>
 
           {/* Search Box */}
           <div className="max-w-3xl mx-auto mb-8">
@@ -181,14 +187,30 @@ export default function SearchPage() {
           {/* Results */}
           {!loading && !error && filteredDishes.length > 0 && (
             <>
-              <div className="mb-6 text-gray-600 text-center">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="mb-6 text-gray-600 text-center"
+              >
                 {filteredDishes.length}件の料理が見つかりました
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredDishes.map((dish) => (
-                  <DishCard key={dish.id} dish={dish} showLikeButton={true} />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              >
+                {filteredDishes.map((dish, index) => (
+                  <motion.div
+                    key={dish.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.3 }}
+                  >
+                    <DishCard dish={dish} showLikeButton={true} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </>
           )}
         </div>

@@ -54,3 +54,28 @@ export const REGIONS = [
 ] as const;
 
 export type Region = typeof REGIONS[number];
+
+// Roulette types
+export interface RouletteSelection {
+  country: string | null;
+  mainFood: string | null;
+  mainDish: string | null;
+}
+
+export interface RouletteHistory {
+  countries: string[];
+  mainFoods: string[];
+  mainDishes: string[];
+}
+
+export interface AIRecipe {
+  id: string;
+  userId: string;
+  country: string;
+  mainFood: string;
+  mainDish: string;
+  recipe: string; // Markdown format
+  createdAt: Timestamp;
+}
+
+export type RouletteStep = 'country' | 'main_food' | 'main_dish' | 'complete';

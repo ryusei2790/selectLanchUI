@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "import-dishes": "tsx scripts/import-dishes.ts"
   },
   "dependencies": {
     "firebase": "^12.5.0",
+    "firebase-admin": "^13.0.0",
     "framer-motion": "^12.23.24",
     "next": "16.0.1",
     "react": "19.2.0",
@@ -23,6 +25,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "tailwindcss": "^4",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }

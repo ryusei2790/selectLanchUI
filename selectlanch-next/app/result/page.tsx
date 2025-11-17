@@ -26,6 +26,12 @@ export default function ResultPage() {
     if (data) {
       setRecipeData(JSON.parse(data));
     }
+
+    // Cleanup sessionStorage when component unmounts or when user navigates away
+    return () => {
+      // Clear the recipe data when leaving the page
+      sessionStorage.removeItem('aiRecipe');
+    };
   }, []);
 
   const handleSaveRecipe = async () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -37,50 +37,51 @@ export default function Roulette() {
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Load countries on mount
-  useEffect(() => {
-    loadCountries();
-  }, []);
-
-  // Load dishes when country is selected
-  useEffect(() => {
-    if (selection.country) {
-      loadMainFoods(selection.country);
-    }
-  }, [selection.country]);
-
-  // Load main dishes when main food is selected
-  useEffect(() => {
-    if (selection.country && selection.mainFood) {
-      loadMainDishes(selection.country);
-    }
-  }, [selection.country, selection.mainFood]);
-
-  const loadCountries = async () => {
+  // Memoize loading functions to prevent unnecessary re-renders
+  const loadCountries = useCallback(async () => {
     try {
       const countryList = await getCountriesByRegion();
       setCountries(countryList);
     } catch (error) {
       console.error('Error loading countries:', error);
     }
-  };
+  }, []);
 
-  const loadMainFoods = async (country: string) => {
+  const loadMainFoods = useCallback(async (country: string) => {
     try {
       const dishes = await getDishesByCountryAndCategory(country, 'main_food');
       setMainFoods(dishes);
     } catch (error) {
       console.error('Error loading main foods:', error);
     }
-  };
+  }, []);
 
-  const loadMainDishes = async (country: string) => {
+  const loadMainDishes = useCallback(async (country: string) => {
     try {
       const dishes = await getDishesByCountryAndCategory(country, 'main_dish');
       setMainDishes(dishes);
     } catch (error) {
       console.error('Error loading main dishes:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadCountries();
+  }, [loadCountries]);
+
+  // Load dishes when country is selected
+  useEffect(() => {
+    if (selection.country) {
+      loadMainFoods(selection.country);
+    }
+  }, [selection.country, loadMainFoods]);
+
+  // Load main dishes when main food is selected
+  useEffect(() => {
+    if (selection.country && selection.mainFood) {
+      loadMainDishes(selection.country);
+    }
+  }, [selection.country, selection.mainFood, loadMainDishes]);
 
   const getRandomItem = <T,>(items: T[], usedItems: T[]): T | null => {
     if (items.length === 0) return null;

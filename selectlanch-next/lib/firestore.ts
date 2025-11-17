@@ -16,6 +16,7 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { Dish, DishCategory, User, Like, AIRecipe } from '@/types';
+import { getCachedData, getDishCacheKey, getSearchCacheKey, invalidateDishCache } from './cache';
 
 // User operations
 export const getUserProfile = async (uid: string): Promise<User | null> => {
@@ -47,6 +48,10 @@ export const createDish = async (
     updatedAt: Timestamp.now(),
   };
   const docRef = await addDoc(collection(db, 'dishes'), newDish);
+
+  // Invalidate dish cache when new dish is created
+  invalidateDishCache();
+
   return docRef.id;
 };
 
@@ -63,27 +68,32 @@ export const getDishes = async (
   sortBy: 'popular' | 'recent' = 'popular',
   limitCount: number = 50
 ): Promise<Dish[]> => {
-  const constraints: QueryConstraint[] = [];
+  // Use cache to reduce Firestore reads
+  const cacheKey = getDishCacheKey(category, sortBy, limitCount);
 
-  if (category) {
-    constraints.push(where('category', '==', category));
-  }
+  return getCachedData(cacheKey, async () => {
+    const constraints: QueryConstraint[] = [];
 
-  if (sortBy === 'popular') {
-    constraints.push(orderBy('likesCount', 'desc'));
-  } else {
-    constraints.push(orderBy('createdAt', 'desc'));
-  }
+    if (category) {
+      constraints.push(where('category', '==', category));
+    }
 
-  constraints.push(limit(limitCount));
+    if (sortBy === 'popular') {
+      constraints.push(orderBy('likesCount', 'desc'));
+    } else {
+      constraints.push(orderBy('createdAt', 'desc'));
+    }
 
-  const q = query(collection(db, 'dishes'), ...constraints);
-  const querySnapshot = await getDocs(q);
+    constraints.push(limit(limitCount));
 
-  return querySnapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-  })) as Dish[];
+    const q = query(collection(db, 'dishes'), ...constraints);
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    })) as Dish[];
+  }, 5 * 60 * 1000); // Cache for 5 minutes
 };
 
 export const getDishesByAuthor = async (authorId: string): Promise<Dish[]> => {
@@ -110,31 +120,36 @@ export const searchDishes = async (searchTerm: string, maxResults: number = 100)
     return getDishes(undefined, 'recent', maxResults);
   }
 
-  // Fetch limited set of dishes for client-side filtering
-  // This significantly reduces read operations compared to fetching all dishes
-  const q = query(
-    collection(db, 'dishes'),
-    orderBy('createdAt', 'desc'),
-    limit(Math.min(maxResults * 2, 500)) // Fetch 2x limit or max 500 to filter from
-  );
+  // Use cache to reduce repeated searches
+  const cacheKey = getSearchCacheKey(searchTerm, maxResults);
 
-  const querySnapshot = await getDocs(q);
-  const dishes = querySnapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-  })) as Dish[];
+  return getCachedData(cacheKey, async () => {
+    // Fetch limited set of dishes for client-side filtering
+    // This significantly reduces read operations compared to fetching all dishes
+    const q = query(
+      collection(db, 'dishes'),
+      orderBy('createdAt', 'desc'),
+      limit(Math.min(maxResults * 2, 500)) // Fetch 2x limit or max 500 to filter from
+    );
 
-  const searchLower = searchTerm.toLowerCase();
-  const filtered = dishes.filter(
-    (dish) =>
-      dish.name.toLowerCase().includes(searchLower) ||
-      dish.country.toLowerCase().includes(searchLower) ||
-      dish.region.toLowerCase().includes(searchLower) ||
-      (dish.nameEn && dish.nameEn.toLowerCase().includes(searchLower))
-  );
+    const querySnapshot = await getDocs(q);
+    const dishes = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    })) as Dish[];
 
-  // Return limited results to avoid overwhelming UI
-  return filtered.slice(0, maxResults);
+    const searchLower = searchTerm.toLowerCase();
+    const filtered = dishes.filter(
+      (dish) =>
+        dish.name.toLowerCase().includes(searchLower) ||
+        dish.country.toLowerCase().includes(searchLower) ||
+        dish.region.toLowerCase().includes(searchLower) ||
+        (dish.nameEn && dish.nameEn.toLowerCase().includes(searchLower))
+    );
+
+    // Return limited results to avoid overwhelming UI
+    return filtered.slice(0, maxResults);
+  }, 3 * 60 * 1000); // Cache search results for 3 minutes
 };
 
 export const updateDish = async (
@@ -145,10 +160,16 @@ export const updateDish = async (
     ...data,
     updatedAt: Timestamp.now(),
   });
+
+  // Invalidate dish cache when dish is updated
+  invalidateDishCache();
 };
 
 export const deleteDish = async (dishId: string): Promise<void> => {
   await deleteDoc(doc(db, 'dishes', dishId));
+
+  // Invalidate dish cache when dish is deleted
+  invalidateDishCache();
 };
 
 // Like operations

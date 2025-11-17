@@ -154,12 +154,49 @@ selectlanch-next/
 
 ## 🔐 Firebase Admin SDK の設定
 
-API RouteでFirebase Adminを使用するには、サービスアカウントキーが必要です:
+AI レシピ生成API (`/api/generate-recipe`) ではFirebase Admin SDKを使用してユーザー認証を検証します。以下の2つの方法のいずれかで設定してください：
 
-1. Firebase Console → プロジェクト設定 → サービスアカウント
-2. 「新しい秘密鍵の生成」をクリック
-3. ダウンロードしたJSONファイルを安全な場所に保存
-4. 環境変数 `GOOGLE_APPLICATION_CREDENTIALS` にパスを設定
+### 方法1: サービスアカウントキーJSON（推奨 - Vercel/本番環境）
+
+1. **サービスアカウントキーの取得**:
+   - Firebase Console → プロジェクト設定 → サービスアカウント
+   - 「新しい秘密鍵の生成」をクリック
+   - JSONファイルがダウンロードされます
+
+2. **環境変数の設定**:
+   - `.env.local` に以下を追加（JSON全体を1行の文字列として）:
+   ```env
+   FIREBASE_SERVICE_ACCOUNT_KEY={"type":"service_account","project_id":"your-project","private_key_id":"...","private_key":"-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n","client_email":"...","client_id":"...","auth_uri":"...","token_uri":"...","auth_provider_x509_cert_url":"...","client_x509_cert_url":"..."}
+   ```
+
+3. **Vercelでの設定**:
+   - Vercel Dashboard → プロジェクト → Settings → Environment Variables
+   - `FIREBASE_SERVICE_ACCOUNT_KEY` にJSON全体をコピー&ペースト
+
+### 方法2: GOOGLE_APPLICATION_CREDENTIALS（推奨 - ローカル開発）
+
+1. **サービスアカウントキーの取得**（上記と同じ）
+
+2. **環境変数の設定**:
+   ```bash
+   # macOS/Linux
+   export GOOGLE_APPLICATION_CREDENTIALS="/path/to/serviceAccountKey.json"
+
+   # Windows (PowerShell)
+   $env:GOOGLE_APPLICATION_CREDENTIALS="C:\path\to\serviceAccountKey.json"
+   ```
+
+3. **開発サーバーの起動**:
+   ```bash
+   npm run dev
+   ```
+
+### 注意事項
+
+- サービスアカウントキーは**絶対にGitにコミットしない**
+- `.gitignore` にサービスアカウントキーのパスを追加
+- 本番環境では方法1、ローカル開発では方法2を推奨
+- キーが漏洩した場合は、Firebase Consoleで即座に無効化して新しいキーを生成
 
 ## 🎨 主要なページ
 

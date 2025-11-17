@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { toggleLike, checkIfLiked } from '@/lib/firestore';
 import { useRouter } from 'next/navigation';
+import { writeRateLimiter } from '@/lib/rateLimiter';
 
 interface LikeButtonProps {
   dishId: string;
@@ -18,6 +19,7 @@ export default function LikeButton({ dishId, initialLikesCount, size = 'md' }: L
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const [loading, setLoading] = useState(false);
   const [checkingLike, setCheckingLike] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const checkLike = async () => {
@@ -25,8 +27,10 @@ export default function LikeButton({ dishId, initialLikesCount, size = 'md' }: L
         try {
           const isLiked = await checkIfLiked(user.uid, dishId);
           setLiked(isLiked);
+          setError(null); // Clear any previous errors
         } catch (error) {
           console.error('Error checking like status:', error);
+          setError('いいね状態の確認に失敗しました');
         }
       }
       setCheckingLike(false);
@@ -46,7 +50,19 @@ export default function LikeButton({ dishId, initialLikesCount, size = 'md' }: L
 
     if (loading) return;
 
+    // Check rate limit (20 writes per minute)
+    if (!writeRateLimiter.isAllowed(user.uid)) {
+      const timeUntilReset = writeRateLimiter.getTimeUntilReset(user.uid);
+      const seconds = Math.ceil(timeUntilReset / 1000);
+      setError(`レート制限に達しました。${seconds}秒後に再度お試しください。`);
+
+      // Clear error after timeout
+      setTimeout(() => setError(null), timeUntilReset + 1000);
+      return;
+    }
+
     setLoading(true);
+    setError(null);
 
     // Optimistic UI update
     const newLiked = !liked;
@@ -63,6 +79,10 @@ export default function LikeButton({ dishId, initialLikesCount, size = 'md' }: L
       // Revert on error
       setLiked(previousLiked);
       setLikesCount(previousCount);
+      setError('いいねの更新に失敗しました。もう一度お試しください。');
+
+      // Clear error after 5 seconds
+      setTimeout(() => setError(null), 5000);
     } finally {
       setLoading(false);
     }
@@ -105,15 +125,21 @@ export default function LikeButton({ dishId, initialLikesCount, size = 'md' }: L
   }
 
   return (
-    <button
-      onClick={handleLike}
-      disabled={loading}
-      className={`flex items-center gap-1 ${sizeClasses[size]} transition-all duration-200 ${
-        liked
-          ? 'text-red-500 hover:text-red-600'
-          : 'text-gray-400 hover:text-red-400'
-      } ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-    >
+    <div className="relative">
+      {error && (
+        <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-red-500 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-10">
+          {error}
+        </div>
+      )}
+      <button
+        onClick={handleLike}
+        disabled={loading}
+        className={`flex items-center gap-1 ${sizeClasses[size]} transition-all duration-200 ${
+          liked
+            ? 'text-red-500 hover:text-red-600'
+            : 'text-gray-400 hover:text-red-400'
+        } ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+      >
       {liked ? (
         <svg
           className={`${iconSizes[size]} animate-[heartbeat_0.3s_ease-in-out]`}
@@ -138,6 +164,7 @@ export default function LikeButton({ dishId, initialLikesCount, size = 'md' }: L
         </svg>
       )}
       <span className="font-semibold">{likesCount}</span>
-    </button>
+      </button>
+    </div>
   );
 }

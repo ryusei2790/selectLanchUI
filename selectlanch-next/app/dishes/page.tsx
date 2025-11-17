@@ -11,27 +11,55 @@ type SortOption = 'popular' | 'recent';
 export default function DishesPage() {
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<DishCategory | 'all'>('all');
   const [sortBy, setSortBy] = useState<SortOption>('popular');
+  const [limit, setLimit] = useState(20); // Start with 20 items
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    loadDishes();
+    setLimit(20); // Reset limit when filters change
+    setHasMore(true);
+    loadDishes(20);
   }, [selectedCategory, sortBy]);
 
-  const loadDishes = async () => {
+  const loadDishes = async (currentLimit: number = limit) => {
     setLoading(true);
     setError('');
 
     try {
       const category = selectedCategory === 'all' ? undefined : selectedCategory;
-      const fetchedDishes = await getDishes(category, sortBy, 50);
+      const fetchedDishes = await getDishes(category, sortBy, currentLimit);
       setDishes(fetchedDishes);
+
+      // Check if there might be more items
+      setHasMore(fetchedDishes.length >= currentLimit);
     } catch (err) {
       console.error('Error loading dishes:', err);
       setError('料理の読み込みに失敗しました');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadMore = async () => {
+    setLoadingMore(true);
+    const newLimit = limit + 20;
+    setLimit(newLimit);
+
+    try {
+      const category = selectedCategory === 'all' ? undefined : selectedCategory;
+      const fetchedDishes = await getDishes(category, sortBy, newLimit);
+      setDishes(fetchedDishes);
+
+      // Check if there might be more items
+      setHasMore(fetchedDishes.length >= newLimit);
+    } catch (err) {
+      console.error('Error loading more dishes:', err);
+      setError('追加の料理の読み込みに失敗しました');
+    } finally {
+      setLoadingMore(false);
     }
   };
 
@@ -154,11 +182,36 @@ export default function DishesPage() {
 
           {/* Dishes Grid */}
           {!loading && !error && dishes.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {dishes.map((dish) => (
-                <DishCard key={dish.id} dish={dish} showLikeButton={true} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {dishes.map((dish) => (
+                  <DishCard key={dish.id} dish={dish} showLikeButton={true} />
+                ))}
+              </div>
+
+              {/* Load More Button */}
+              {hasMore && (
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={loadMore}
+                    disabled={loadingMore}
+                    className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loadingMore ? (
+                      <span className="flex items-center gap-2">
+                        <div className="inline-block animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                        読み込み中...
+                      </span>
+                    ) : (
+                      'もっと見る'
+                    )}
+                  </button>
+                  <p className="text-sm text-gray-500 mt-2">
+                    さらに20件ずつ表示します
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>

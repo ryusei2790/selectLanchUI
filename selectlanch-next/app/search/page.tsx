@@ -46,11 +46,13 @@ export default function SearchPage() {
     setHasSearched(true);
 
     try {
-      const results = await searchDishes(term);
+      // Optimized search with 100 results limit
+      const results = await searchDishes(term, 100);
       setDishes(results);
     } catch (err) {
       console.error('Error searching dishes:', err);
-      setError('検索に失敗しました');
+      const errorMessage = err instanceof Error ? err.message : '検索に失敗しました';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -190,9 +192,16 @@ export default function SearchPage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="mb-6 text-gray-600 text-center"
+                className="mb-6 text-center"
               >
-                {filteredDishes.length}件の料理が見つかりました
+                <p className="text-gray-600">
+                  {filteredDishes.length}件の料理が見つかりました
+                </p>
+                {dishes.length >= 100 && (
+                  <p className="text-sm text-orange-600 mt-2">
+                    ※ 検索結果は最大100件までです。より具体的なキーワードで検索すると、目的の料理が見つかりやすくなります。
+                  </p>
+                )}
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}

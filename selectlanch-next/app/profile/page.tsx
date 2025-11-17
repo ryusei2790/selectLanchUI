@@ -40,6 +40,7 @@ export default function ProfilePage() {
 
     setLoadingDishes(true);
     try {
+      // Optimized: Both queries run in parallel, getUserLikedDishes uses batch processing
       const [posts, likes] = await Promise.all([
         getDishesByAuthor(user.uid),
         getUserLikedDishes(user.uid),
@@ -48,6 +49,8 @@ export default function ProfilePage() {
       setLikedDishes(likes);
     } catch (error) {
       console.error('Error loading dishes:', error);
+      const errorMessage = error instanceof Error ? error.message : '料理の読み込みに失敗しました';
+      setError(errorMessage);
     } finally {
       setLoadingDishes(false);
     }

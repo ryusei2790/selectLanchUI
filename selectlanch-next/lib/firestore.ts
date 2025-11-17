@@ -100,24 +100,41 @@ export const getDishesByAuthor = async (authorId: string): Promise<Dish[]> => {
   })) as Dish[];
 };
 
-export const searchDishes = async (searchTerm: string): Promise<Dish[]> => {
+export const searchDishes = async (searchTerm: string, maxResults: number = 100): Promise<Dish[]> => {
   // Note: Firestore doesn't support full-text search natively
-  // This is a simple implementation that fetches all dishes and filters client-side
-  // For production, consider using Algolia or similar service
-  const querySnapshot = await getDocs(collection(db, 'dishes'));
+  // This optimized implementation limits results to avoid excessive reads
+  // For better full-text search, consider using Algolia or similar service
+
+  if (!searchTerm.trim()) {
+    // If no search term, return recent dishes with limit
+    return getDishes(undefined, 'recent', maxResults);
+  }
+
+  // Fetch limited set of dishes for client-side filtering
+  // This significantly reduces read operations compared to fetching all dishes
+  const q = query(
+    collection(db, 'dishes'),
+    orderBy('createdAt', 'desc'),
+    limit(Math.min(maxResults * 2, 500)) // Fetch 2x limit or max 500 to filter from
+  );
+
+  const querySnapshot = await getDocs(q);
   const dishes = querySnapshot.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
   })) as Dish[];
 
   const searchLower = searchTerm.toLowerCase();
-  return dishes.filter(
+  const filtered = dishes.filter(
     (dish) =>
       dish.name.toLowerCase().includes(searchLower) ||
       dish.country.toLowerCase().includes(searchLower) ||
       dish.region.toLowerCase().includes(searchLower) ||
       (dish.nameEn && dish.nameEn.toLowerCase().includes(searchLower))
   );
+
+  // Return limited results to avoid overwhelming UI
+  return filtered.slice(0, maxResults);
 };
 
 export const updateDish = async (
@@ -196,11 +213,17 @@ export const getUserLikedDishes = async (userId: string): Promise<Dish[]> => {
 
   if (dishIds.length === 0) return [];
 
-  // Fetch dishes
+  // Fetch dishes in parallel batches (optimized to reduce sequential reads)
   const dishes: Dish[] = [];
-  for (const dishId of dishIds) {
-    const dish = await getDish(dishId);
-    if (dish) dishes.push(dish);
+  const batchSize = 10; // Process 10 dishes at a time
+
+  for (let i = 0; i < dishIds.length; i += batchSize) {
+    const batch = dishIds.slice(i, i + batchSize);
+    const batchPromises = batch.map(dishId => getDish(dishId));
+    const batchResults = await Promise.all(batchPromises);
+
+    // Filter out null results and add to dishes array
+    dishes.push(...batchResults.filter((dish): dish is Dish => dish !== null));
   }
 
   return dishes;
